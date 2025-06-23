@@ -1,0 +1,22 @@
+{
+  "name": "wine-bot-node",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "init-db": "node initDb.js",
+    "scheduler": "node scheduler.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "express": "^4.18.2",
+    "node-cron": "^3.0.2",
+    "node-fetch": "^3.3.2",
+    "openai": "^5.2.0",
+    "rss-parser": "^3.13.0",
+    "sentiment": "^5.0.1",
+    "sqlite": "^4.1.0",
+    "sqlite3": "^5.1.2",
+    "twitter-api-v2": "^1.15.0"
+  }
+}

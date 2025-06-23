@@ -1,0 +1,36 @@
+// public/index.html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wine Bot Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <h1>Daily Wine Bot Sentiment</h1>
+    <canvas id="chart"></canvas>
+    <script>
+      fetch("/api/summary")
+        .then((res) => res.json())
+        .then((data) => {
+          const labels = [...new Set(data.map((d) => d.date))];
+          const sentiments = ["POSITIVE", "NEUTRAL", "NEGATIVE"];
+          const datasets = sentiments.map((label) => ({
+            label,
+            data: labels.map((date) =>
+              data
+                .filter((d) => d.date === date && d.sentiment === label)
+                .reduce((sum, d) => sum + d.count, 0)
+            ),
+            fill: false,
+            tension: 0.1,
+          }));
+          new Chart(document.getElementById("chart"), {
+            type: "line",
+            data: { labels, datasets },
+          });
+        });
+    </script>
+  </body>
+</html>
